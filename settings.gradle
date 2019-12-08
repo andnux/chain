@@ -1,0 +1,8 @@
+rootProject.name='chain'
+include ':app'
+include ':sdk:core'
+include ':sdk:eos'
+include ':sdk:btc'
+include ':sdk:eth'
+include ':sdk:tron'
+include ':sdk:vsys'
