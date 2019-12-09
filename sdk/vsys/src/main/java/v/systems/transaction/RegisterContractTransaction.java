@@ -2,7 +2,6 @@ package v.systems.transaction;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.bitcoinj.core.Base58;
 import v.systems.Account;
 import v.systems.contract.Contract;
 import v.systems.error.SerializationError;
@@ -10,6 +9,7 @@ import v.systems.type.Base58Field;
 import v.systems.type.NetworkType;
 import v.systems.type.SerializedWithSize;
 import v.systems.type.TransactionType;
+import v.systems.utils.Base58;
 
 public class RegisterContractTransaction extends ProvenTransaction {
     public final String[] BYTE_SERIALIZED_FIELDS = {"type", "contract", "initData", "description", "fee", "feeScale", "timestamp"};

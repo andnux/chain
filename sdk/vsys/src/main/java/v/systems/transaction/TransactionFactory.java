@@ -1,8 +1,8 @@
 package v.systems.transaction;
 
-import org.bitcoinj.core.Base58;
 import v.systems.contract.*;
 import v.systems.error.SerializationError;
+import v.systems.utils.Base58;
 
 import java.util.Date;
 

@@ -1,11 +1,8 @@
-package org.tron.common;
+package org.tron.common.utils;
 
 import org.spongycastle.util.encoders.Hex;
 import org.tron.common.crypto.Hash;
 import org.tron.common.crypto.SymmEncoder;
-import org.tron.common.utils.Base58;
-import org.tron.common.utils.ByteArray;
-import org.tron.common.utils.Sha256Hash;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

@@ -2,11 +2,11 @@ package v.systems.transaction;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.bitcoinj.core.Base58;
 import v.systems.type.Base58Field;
 import v.systems.type.NetworkType;
 import v.systems.type.SerializedWithSize;
 import v.systems.type.TransactionType;
+import v.systems.utils.Base58;
 
 public class PaymentTransaction extends ProvenTransaction {
     public final String[] BYTE_SERIALIZED_FIELDS = {"type", "timestamp", "amount", "fee", "feeScale", "recipient", "attachment"};

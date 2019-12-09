@@ -1,4 +1,4 @@
-package top.andnux.vsys.utils;
+package v.systems.utils;
 
 import org.bouncycastle.crypto.Digest;
 import org.bouncycastle.crypto.digests.Blake2bDigest;

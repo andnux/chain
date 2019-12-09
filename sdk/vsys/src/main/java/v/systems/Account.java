@@ -2,7 +2,6 @@ package v.systems;
 
 import com.google.gson.JsonElement;
 
-import org.bitcoinj.core.Base58;
 import org.whispersystems.curve25519.Curve25519;
 import org.whispersystems.curve25519.java.curve_sigs;
 
@@ -26,6 +25,7 @@ import v.systems.transaction.Transaction;
 import v.systems.transaction.TransactionFactory;
 import v.systems.type.NetworkType;
 import v.systems.type.TransactionType;
+import v.systems.utils.Base58;
 import v.systems.utils.BytesHelper;
 import v.systems.utils.Hash;
 

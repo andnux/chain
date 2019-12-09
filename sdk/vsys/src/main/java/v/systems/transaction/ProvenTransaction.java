@@ -2,11 +2,11 @@ package v.systems.transaction;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.bitcoinj.core.Base58;
 import v.systems.entity.Proof;
 import v.systems.error.SerializationError;
 import v.systems.serialization.JsonSerializable;
 import v.systems.type.NetworkType;
+import v.systems.utils.Base58;
 import v.systems.utils.Hash;
 
 import java.util.ArrayList;

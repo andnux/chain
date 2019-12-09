@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
 
-import top.andnux.tron.StringUtil;
+import org.tron.common.utils.StringUtil;
 
 /**
  * <p>Message codec functions.</p>

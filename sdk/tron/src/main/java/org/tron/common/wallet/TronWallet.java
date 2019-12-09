@@ -1,4 +1,4 @@
-package top.andnux.chain.tron.wallet;
+package org.tron.common.wallet;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 
-import top.andnux.tron.StringUtil;
+import org.tron.common.utils.StringUtil;
 
 public class TronWallet {
 

@@ -1,4 +1,4 @@
-package top.andnux.chain.tron;
+package top.andnux.tron;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("top.andnux.chain.tron.test", appContext.getPackageName());
+        assertEquals("top.andnux.tron.test", appContext.getPackageName());
     }
 }

@@ -1,7 +1,7 @@
 package org.tron.common.utils.abi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import top.andnux.tron.StringUtil;
+import org.tron.common.utils.StringUtil;
 import org.tron.common.crypto.Hash;
 import org.tron.common.utils.ByteUtil;
 

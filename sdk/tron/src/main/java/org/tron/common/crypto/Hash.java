@@ -31,7 +31,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Security;
 
-import top.andnux.tron.config.Parameter;
+import org.tron.common.config.Parameter;
 
 import static java.util.Arrays.copyOfRange;
 

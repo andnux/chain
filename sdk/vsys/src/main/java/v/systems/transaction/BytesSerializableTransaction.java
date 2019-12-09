@@ -1,10 +1,10 @@
 package v.systems.transaction;
 
-import org.bitcoinj.core.Base58;
 import v.systems.error.SerializationError;
 import v.systems.serialization.BytesSerializable;
 import v.systems.type.Base58Field;
 import v.systems.type.SerializedWithSize;
+import v.systems.utils.Base58;
 import v.systems.utils.BytesHelper;
 
 import java.lang.reflect.Field;

@@ -1,4 +1,4 @@
-package top.andnux.vsys;
+package v.systems;
 
 public class Chain {
     public static final byte TEST_NET = 'T';

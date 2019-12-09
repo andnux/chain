@@ -1,6 +1,6 @@
 package org.tron.common.bip32;
 
-import top.andnux.tron.StringUtil;
+import org.tron.common.utils.StringUtil;
 import org.tron.common.crypto.Hash;
 import org.tron.common.utils.Utils;
 

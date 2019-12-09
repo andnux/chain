@@ -1,12 +1,11 @@
 package v.systems.contract;
 
-import org.bitcoinj.core.Base58;
-
 import java.util.List;
 
 import v.systems.error.SerializationError;
 import v.systems.serialization.BytesSerializable;
 import v.systems.type.DataType;
+import v.systems.utils.Base58;
 import v.systems.utils.BytesHelper;
 
 public class DataEntry implements BytesSerializable {

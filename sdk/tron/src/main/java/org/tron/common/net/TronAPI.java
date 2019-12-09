@@ -1,4 +1,4 @@
-package top.andnux.chain.tron.net;
+package org.tron.common.net;
 
 
 import com.google.protobuf.ByteString;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import top.andnux.tron.StringUtil;
+import org.tron.common.utils.StringUtil;
 
 public class TronAPI {
 

@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.andnux'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -26,12 +28,40 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.lambdaworks:scrypt:1.4.0'
+    api 'org.bouncycastle:bcprov-jdk15on:1.64'
     api 'io.github.novacrypto:BIP32:0.0.8'
     api 'io.github.novacrypto:BIP39:0.1.9'
     api 'io.github.novacrypto:BIP44:0.0.3'
     api 'com.alibaba:fastjson:1.1.71.android'
+    api 'org.apache.commons:commons-lang3:3.9'
+    api 'com.google.code.gson:gson:2.8.6'
     api 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task classesJar(type: Jar) {
+    from "$buildDir/intermediates/classes/release"
+}
+
+artifacts {
+    archives classesJar
+    archives javadocJar
+    archives sourcesJar
 }

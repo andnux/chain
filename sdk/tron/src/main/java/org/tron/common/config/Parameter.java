@@ -1,4 +1,4 @@
-package top.andnux.chain.tron.config;
+package org.tron.common.config;
 
 public interface Parameter {
 

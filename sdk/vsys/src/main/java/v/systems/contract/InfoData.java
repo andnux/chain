@@ -1,10 +1,9 @@
 package v.systems.contract;
 
-import org.bitcoinj.core.Base58;
-
 import java.io.Serializable;
 
 import v.systems.type.DataType;
+import v.systems.utils.Base58;
 
 public class InfoData  implements Serializable {
     private String data;

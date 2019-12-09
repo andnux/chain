@@ -1,10 +1,9 @@
 package v.systems.contract;
 
-import org.bitcoinj.core.Base58;
-
 import java.io.Serializable;
 import java.util.Arrays;
 
+import v.systems.utils.Base58;
 import v.systems.utils.BytesHelper;
 import v.systems.utils.Hash;
 

@@ -1,4 +1,4 @@
-package top.andnux.chain.tron;
+package top.andnux.tron;
 
 import org.junit.Test;
 

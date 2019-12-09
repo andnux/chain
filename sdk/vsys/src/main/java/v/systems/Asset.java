@@ -1,4 +1,4 @@
-package top.andnux.vsys;
+package v.systems;
 
 public abstract class Asset {
     /**

@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.google.protobuf'
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.andnux'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
@@ -21,13 +23,85 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+
+    sourceSets {
+        main {
+            proto {
+                srcDir 'src/main/proto'
+            }
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:+"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:+'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    outputSubDir = "gen"
+                }
+            }
+        }
+        all()*.plugins {
+            grpc {
+                outputSubDir = "gen"
+            }
+        }
+    }
 }
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api project(path: ':sdk:core')
-    api 'androidx.appcompat:appcompat:1.0.2'
+    api 'io.grpc:grpc-okhttp:1.24.1'
+    api 'io.grpc:grpc-protobuf:1.24.1'
+    api 'io.grpc:grpc-stub:1.24.1'
+    api 'javax.annotation:javax.annotation-api:1.2'
+    api "com.madgag.spongycastle:core:1.58.0.0"
+    api "com.madgag.spongycastle:prov:1.54.0.0"
+    api 'org.bouncycastle:bcprov-jdk15on:1.64'
+    api "org.apache.commons:commons-collections4:4.0"
+    api 'com.fasterxml.jackson.core:jackson-databind:2.10.0'
+    api 'com.fasterxml.jackson.core:jackson-core:2.10.0'
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api('org.web3j:core:4.2.0-android') {
+        exclude group: "org.bouncycastle"
+    }
+    api 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task classesJar(type: Jar) {
+    from "$buildDir/intermediates/classes/release"
+}
+
+artifacts {
+    archives classesJar
+    archives javadocJar
+    archives sourcesJar
 }
