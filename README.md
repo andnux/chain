@@ -10,7 +10,7 @@ allprojects {
 - **Step 2.** Add the dependency
 ```groovy
 dependencies {
-    def  chain_version = '0.1.1'
+    def chain_version = '0.1.1'
     implementation "com.github.andnux:chain:${chain_version}"
     or
     implementation "com.github.andnux.chain:btc:${chain_version}"
