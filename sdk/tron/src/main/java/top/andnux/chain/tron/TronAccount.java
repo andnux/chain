@@ -1,28 +1,24 @@
-package top.andnux.chain.eth;
+package top.andnux.chain.tron;
 
 import top.andnux.chain.core.Account;
 
-public class EthAccount extends Account {
+public class TronAccount extends Account {
 
     private String address;
     private String mnemonic;
     private String keyStore;
 
-    public EthAccount() {
+    public TronAccount() {
 
     }
 
-    public EthAccount(String privateKey, String publicKey) {
-        super(privateKey, publicKey);
-    }
-
-    public EthAccount(String privateKey, String publicKey, String address, String keyStore) {
+    public TronAccount(String privateKey, String publicKey, String address, String keyStore) {
         super(privateKey, publicKey);
         this.address = address;
         this.keyStore = keyStore;
     }
 
-    public EthAccount(String privateKey, String publicKey, String address,
+    public TronAccount(String privateKey, String publicKey, String address,
                        String mnemonic, String keyStore) {
         super(privateKey, publicKey);
         this.address = address;

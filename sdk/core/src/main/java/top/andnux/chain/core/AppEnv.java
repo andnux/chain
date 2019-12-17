@@ -5,7 +5,14 @@ public enum AppEnv {
     MAIN(),
     TEST();
 
+    private static AppEnv sAppEnv = AppEnv.MAIN;
+
+    public static void setEnv(AppEnv env) {
+        sAppEnv = env;
+    }
+
     public static AppEnv getEnv() {
-        return AppEnv.MAIN;
+        if (sAppEnv == null) sAppEnv = AppEnv.MAIN;
+        return sAppEnv;
     }
 }

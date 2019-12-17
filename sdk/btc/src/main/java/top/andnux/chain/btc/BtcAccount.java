@@ -4,6 +4,7 @@ import top.andnux.chain.core.Account;
 
 public class BtcAccount extends Account {
 
+    private String mnemonic;
     private String address;
 
     public String getAddress() {
@@ -12,5 +13,13 @@ public class BtcAccount extends Account {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getMnemonic() {
+        return mnemonic;
+    }
+
+    public void setMnemonic(String mnemonic) {
+        this.mnemonic = mnemonic;
     }
 }

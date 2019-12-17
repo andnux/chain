@@ -1,18 +1,27 @@
 package top.andnux.chain.core;
 
-public interface Chain<A extends Account, AC extends AccountManager<A>,
-        T extends TransferParams> {
+public interface Chain<A extends Account, T extends TransferParams> {
 
-    Node nodeManager();
+    String name();
 
-    AC accountManager();
+    A createAccount() throws Exception;
 
-    void transfer(T params, Callback callback);
+    A createAccountByPrivateKey(String privateKey) throws Exception;
 
-    interface Callback {
+    String getUrlByUser(AppEnv env, String defaultUrl);
 
-        void onSuccess(String txId);
+    String getUrl(AppEnv env, String defaultUrl);
 
-        void onError(Throwable e);
-    }
+    void setUrlByUser(AppEnv env, String url);
+
+    void setUrl(AppEnv env, String url);
+
+    void measure(String chain, String url, int index, MeasureCallback callback);
+
+    void getBalance(String account, Callback<String> callback);
+
+    void getTokenBalance(String account, String token, String contract, Callback callback);
+
+    void transfer(T params, Callback<String> callback);
+
 }

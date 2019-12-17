@@ -4,7 +4,7 @@ public class TransferParams {
 
     private String from;
     private String to;
-    private String value;
+    private String quantity;
     private String privateKey;
 
     public String getFrom() {
@@ -23,12 +23,12 @@ public class TransferParams {
         this.to = to;
     }
 
-    public String getValue() {
-        return value;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
     public String getPrivateKey() {

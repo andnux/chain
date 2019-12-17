@@ -3,11 +3,8 @@ package top.andnux.chain;
 import org.junit.Test;
 
 import top.andnux.chain.btc.BtcAccount;
-import top.andnux.chain.btc.BtcAddressType;
 import top.andnux.chain.btc.BtcChain;
-import top.andnux.chain.btc.impl.BtcChainImpl;
-
-import static org.junit.Assert.*;
+import top.andnux.chain.btc.BtcChainImpl;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

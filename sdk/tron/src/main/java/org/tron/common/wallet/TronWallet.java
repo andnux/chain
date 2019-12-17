@@ -32,6 +32,10 @@ public class TronWallet {
     private String mnemonic;
     private String mKeyStore;
 
+    private TronWallet() {
+
+    }
+
     public byte[] getPublicKey() {
         return mECKey != null ? mECKey.getPubKey() : publicKey;
     }
@@ -77,7 +81,7 @@ public class TronWallet {
         return mnemonic;
     }
 
-    public static TronWallet generateKeyForKeyStore(String keyStore, String password) throws Throwable {
+    public static TronWallet generateKeyForKeyStore(String keyStore, String password) throws Exception {
         TronWallet wallet = new TronWallet();
         wallet.mKeyStore = keyStore;
         if (keyStore != null && !keyStore.isEmpty()) {

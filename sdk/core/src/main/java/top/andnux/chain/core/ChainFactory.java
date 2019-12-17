@@ -5,9 +5,28 @@ import java.util.Map;
 
 public class ChainFactory {
 
-    private static Map<String, Chain> mCache = new HashMap<>();
+    private static Map<String, Object> sChainMap = new HashMap<>();
 
-    public static Node getChain(String chain) {
-      return null;
+    @SuppressWarnings("all")
+    public static <A extends Account, T extends TransferParams,
+            R extends Chain<A, T>> R getChain(Class<? extends R> clazz) {
+        try {
+            String key = clazz.getCanonicalName();
+            Object chain = sChainMap.get(key);
+            if (chain == null) {
+                Provider annotation = clazz.getAnnotation(Provider.class);
+                Class<?> value = annotation.value();
+                if (annotation != null) {
+                    chain = value.newInstance();
+                }
+                if (chain != null) {
+                    sChainMap.put(key, chain);
+                }
+            }
+            return (R) chain;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

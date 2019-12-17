@@ -157,7 +157,7 @@ public class VsysWallet {
         BigInteger mask = new BigInteger(new byte[]{0, 0, 7, -1}); // 11 lower bits
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 15; i++) {
-            sb.append(i > 0 ? ' ' : "").append(English.values()[rand.and(mask).intValue()]);
+            sb.append(i > 0 ? ' ' : "").append(English.INSTANCE.getWord(rand.and(mask).intValue()));
             rand = rand.shiftRight(11);
         }
         return sb.toString();

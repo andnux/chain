@@ -1,6 +1,11 @@
 package top.andnux.chain.vsys;
 
+import com.alibaba.fastjson.JSON;
+
 import org.junit.Test;
+
+import top.andnux.chain.core.Chain;
+import top.andnux.chain.core.ChainFactory;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +16,7 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void addition_isCorrect()throws Exception{
+
     }
 }

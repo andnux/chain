@@ -28,11 +28,11 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.lambdaworks:scrypt:1.4.0'
-    api 'org.bouncycastle:bcprov-jdk15on:1.64'
+    api 'org.bitcoinj:bitcoinj-core:0.15.5'
     api 'io.github.novacrypto:BIP32:0.0.8'
     api 'io.github.novacrypto:BIP39:0.1.9'
     api 'io.github.novacrypto:BIP44:0.0.3'
-    api 'com.alibaba:fastjson:1.1.71.android'
+    api 'com.alibaba:fastjson:1.2.62'
     api 'org.apache.commons:commons-lang3:3.9'
     api 'com.google.code.gson:gson:2.8.6'
     api 'androidx.appcompat:appcompat:1.1.0'
