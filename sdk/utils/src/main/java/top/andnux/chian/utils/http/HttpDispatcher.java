@@ -1,4 +1,4 @@
-package top.andnux.chain.core.http;
+package top.andnux.chian.utils.http;
 
 import android.os.Handler;
 import android.os.Looper;

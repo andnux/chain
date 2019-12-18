@@ -1,4 +1,4 @@
-package top.andnux.chain.core.http;
+package top.andnux.chian.utils.http;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,7 +26,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import top.andnux.chain.core.BuildConfig;
+import top.andnux.chian.utils.BuildConfig;
 
 public class DefaultHttpProvider implements HttpProvider {
 

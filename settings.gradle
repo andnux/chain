@@ -1,5 +1,6 @@
 rootProject.name='chain'
 include ':app'
+include ':sdk:utils'
 include ':sdk:core'
 include ':sdk:eos'
 include ':sdk:btc'

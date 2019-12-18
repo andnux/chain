@@ -21,8 +21,8 @@ import top.andnux.chain.core.AppEnv;
 import top.andnux.chain.core.Callback;
 import top.andnux.chain.core.MeasureCallback;
 import top.andnux.chain.core.Utils;
-import top.andnux.chain.core.http.HttpCallback;
-import top.andnux.chain.core.http.HttpRequest;
+import top.andnux.chian.utils.http.HttpCallback;
+import top.andnux.chian.utils.http.HttpRequest;
 
 public class BtcChainImpl extends AbstractChain<BtcAccount, BtcTransferParams> implements BtcChain {
 
