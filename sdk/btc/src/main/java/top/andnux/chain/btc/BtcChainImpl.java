@@ -11,6 +11,7 @@ import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
+import org.json.JSONObject;
 
 import java.util.Collections;
 
@@ -20,6 +21,8 @@ import top.andnux.chain.core.AppEnv;
 import top.andnux.chain.core.Callback;
 import top.andnux.chain.core.MeasureCallback;
 import top.andnux.chain.core.Utils;
+import top.andnux.chain.core.http.HttpCallback;
+import top.andnux.chain.core.http.HttpRequest;
 
 public class BtcChainImpl extends AbstractChain<BtcAccount, BtcTransferParams> implements BtcChain {
 
@@ -31,6 +34,20 @@ public class BtcChainImpl extends AbstractChain<BtcAccount, BtcTransferParams> i
     @Override
     public BtcAccount createAccountByPrivateKey(String privateKey) throws Exception {
         return createAccountByPrivateKey(privateKey, BtcAddressType.START_1);
+    }
+
+    @Override
+    public String getDefaultUrl(AppEnv env) {
+        String defaultUrl = "";
+        switch (env) {
+            case MAIN:
+                defaultUrl = "https://blockchain.info";
+                break;
+            case TEST:
+                defaultUrl = "https://testnet.blockchain.info";
+                break;
+        }
+        return defaultUrl;
     }
 
     @Override
@@ -135,17 +152,53 @@ public class BtcChainImpl extends AbstractChain<BtcAccount, BtcTransferParams> i
     }
 
     @Override
-    public void measure(String chain, String url, int index, MeasureCallback callback) {
+    public void measure(String url, int index, MeasureCallback callback) {
+        long start = System.currentTimeMillis();
+        HttpRequest.with(String.class)
+                .url(url + "/latestblock")
+                .execute(new HttpCallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        long end = System.currentTimeMillis();
+                        if (callback != null) callback.onSuccess(name(),url, index, end - start);
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        if (callback != null) callback.onError(name(),url, index, e);
+                    }
+                });
     }
 
     @Override
     public void getBalance(String account, Callback<String> callback) {
+        String url = getUrl(AppEnv.getEnv(), "");
+        HttpRequest.with(String.class)
+                .url(url + "/balance?active=" + account)
+                .execute(new HttpCallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            jsonObject = jsonObject.getJSONObject(account);
+                            String balance = jsonObject.optString("final_balance");
+                            if (callback != null) callback.onSuccess(balance);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            if (callback != null) callback.onError(e);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (callback != null) callback.onError(e);
+                    }
+                });
 
     }
 
     @Override
-    public void getTokenBalance(String account, String token, String contract, Callback callback) {
-
+    public void getTokenBalance(String account, String token, String contract, Callback<String> callback) {
+        getBalance(account, callback);
     }
 }

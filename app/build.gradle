@@ -21,6 +21,13 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+    packagingOptions {
+        packagingOptions {
+            exclude "/jni/**"
+            exclude "/lib/x86_64/**"
+            exclude '**.proto'
+        }
+    }
 }
 
 dependencies {

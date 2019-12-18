@@ -11,10 +11,16 @@ import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.MnemonicUtils;
 import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
 
 import java.io.File;
+import java.io.IOException;
+
 import io.github.novacrypto.bip39.Words;
 import top.andnux.chain.core.AbstractChain;
+import top.andnux.chain.core.AppEnv;
+import top.andnux.chain.core.AppExecutors;
 import top.andnux.chain.core.Callback;
 import top.andnux.chain.core.MeasureCallback;
 import top.andnux.chain.core.Utils;
@@ -98,8 +104,42 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
     }
 
     @Override
-    public void measure(String chain, String url, int index, MeasureCallback callback) {
+    public String getDefaultUrl(AppEnv env) {
+        String defaultUrl = "";
+        switch (env) {
+            case MAIN:
+                defaultUrl = "https://mainnet.infura.io";
+                break;
+            case TEST:
+                defaultUrl = "https://kovan.infura.io";
+                break;
+        }
+        return defaultUrl;
+    }
 
+    @Override
+    public void measure(String url, int index, MeasureCallback callback) {
+        long start = System.currentTimeMillis();
+        AppExecutors instance = AppExecutors.getInstance();
+        instance.networkIO().execute(() -> {
+            try {
+                Web3j web3j = Web3j.build(new HttpService(url));
+                web3j.ethGasPrice().send();
+                long end = System.currentTimeMillis();
+                instance.mainThread().execute(() -> {
+                    if (callback != null) {
+                        callback.onSuccess(name(),url, index, end - start);
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+                instance.mainThread().execute(() -> {
+                    if (callback != null) {
+                        callback.onError(name(),url, index, e);
+                    }
+                });
+            }
+        });
     }
 
     @Override

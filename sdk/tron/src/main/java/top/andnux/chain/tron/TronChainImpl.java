@@ -6,6 +6,7 @@ import org.tron.common.wallet.TronWallet;
 import java.io.File;
 
 import top.andnux.chain.core.AbstractChain;
+import top.andnux.chain.core.AppEnv;
 import top.andnux.chain.core.Callback;
 import top.andnux.chain.core.MeasureCallback;
 
@@ -27,6 +28,20 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
     @Override
     public TronAccount createAccountByPrivateKey(String privateKey) throws Exception {
         return createAccountByPrivateKey(privateKey, "");
+    }
+
+    @Override
+    public String getDefaultUrl(AppEnv env) {
+        String defaultUrl = "";
+        switch (env) {
+            case MAIN:
+                defaultUrl = "";
+                break;
+            case TEST:
+                defaultUrl = "";
+                break;
+        }
+        return defaultUrl;
     }
 
     @Override
@@ -89,7 +104,7 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
     }
 
     @Override
-    public void measure(String chain, String url, int index, MeasureCallback callback) {
+    public void measure(String url, int index, MeasureCallback callback) {
 
     }
 

@@ -16,11 +16,13 @@ public interface Chain<A extends Account, T extends TransferParams> {
 
     void setUrl(AppEnv env, String url);
 
-    void measure(String chain, String url, int index, MeasureCallback callback);
+    String getDefaultUrl(AppEnv env);
+
+    void measure(String url, int index, MeasureCallback callback);
 
     void getBalance(String account, Callback<String> callback);
 
-    void getTokenBalance(String account, String token, String contract, Callback callback);
+    void getTokenBalance(String account, String token, String contract, Callback<String> callback);
 
     void transfer(T params, Callback<String> callback);
 

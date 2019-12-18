@@ -28,23 +28,24 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api project(path: ':sdk:core')
-    api ("one.block:eosiojava:0.1.0") {
-        exclude group: "org.bouncycastle"
-    }
-    api ("one.block:eosiojavasoftkeysignatureprovider:0.1.0") {
-        exclude group: "org.bouncycastle"
-    }
-    api ("one.block:eosiojavaandroidabieosserializationprovider:0.1.0") {
-        exclude group: "org.bouncycastle"
-    }
-    api ("one.block:eosiojavarpcprovider:0.1.0") {
-        exclude group: "org.bouncycastle"
-    }
     api 'androidx.appcompat:appcompat:1.1.0'
+    api("one.block:eosiojava:0.1.0") {
+        exclude group: "org.bouncycastle"
+    }
+    api("one.block:eosiojavasoftkeysignatureprovider:0.1.1") {
+        exclude group: "org.bouncycastle"
+    }
+    api("one.block:eosiojavaandroidabieosserializationprovider:0.1.0") {
+        exclude group: "org.bouncycastle"
+    }
+    api("one.block:eosiojavarpcprovider:0.1.1") {
+        exclude group: "org.bouncycastle"
+    }
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
 if (isJar.toBoolean()){
     task sourcesJar(type: Jar) {
         classifier = 'sources'

@@ -3,6 +3,7 @@ package top.andnux.chain.core;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 public abstract class AbstractChain<A extends Account, T extends TransferParams> implements Chain<A, T> {
 
@@ -31,7 +32,17 @@ public abstract class AbstractChain<A extends Account, T extends TransferParams>
     @Override
     public String getUrl(AppEnv env, String defaultUrl) {
         String key = name().toLowerCase() + "_" + env.name().toLowerCase() + "_url";
-        return mPreferences.getString(key, defaultUrl);
+        String value = getUrlByUser(env, defaultUrl);
+        if (TextUtils.isEmpty(value)) {
+            value = mPreferences.getString(key, defaultUrl);
+        }
+        if (TextUtils.isEmpty(value)) {
+            value = getDefaultUrl(env);
+        }
+        if (!value.endsWith("/")) {
+            value += "/";
+        }
+        return value;
     }
 
     @Override

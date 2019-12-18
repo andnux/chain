@@ -28,7 +28,8 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.lambdaworks:scrypt:1.4.0'
-    api 'org.bitcoinj:bitcoinj-core:0.15.5'
+    api 'com.squareup.okhttp3:okhttp:3.12.6'
+    api 'com.google.guava:guava:28.1-android'
     api 'io.github.novacrypto:BIP32:0.0.8'
     api 'io.github.novacrypto:BIP39:0.1.9'
     api 'io.github.novacrypto:BIP44:0.0.3'

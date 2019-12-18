@@ -1,15 +1,13 @@
 package top.andnux.chain.eos;
 
 
-import org.jetbrains.annotations.NotNull;
-
 import top.andnux.chain.core.TransferParams;
 
 public class EosTransferParams extends TransferParams {
 
     private String actor;
     private String permission;
-    private String memo;
+    private String memo = "";
     private String account = "eosio.token"; //合约帐号
     private String name = "transfer";//调的方法
 

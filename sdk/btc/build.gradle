@@ -26,6 +26,9 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
+    api('org.bitcoinj:bitcoinj-core:0.15.6') {
+        exclude group: "org.bouncycastle"
+    }
     api project(path: ':sdk:core')
     api 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'

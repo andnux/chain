@@ -9,24 +9,19 @@ public class ChainFactory {
 
     @SuppressWarnings("all")
     public static <A extends Account, T extends TransferParams,
-            R extends Chain<A, T>> R getChain(Class<? extends R> clazz) {
-        try {
-            String key = clazz.getCanonicalName();
-            Object chain = sChainMap.get(key);
-            if (chain == null) {
-                Provider annotation = clazz.getAnnotation(Provider.class);
-                Class<?> value = annotation.value();
-                if (annotation != null) {
-                    chain = value.newInstance();
-                }
-                if (chain != null) {
-                    sChainMap.put(key, chain);
-                }
+            R extends Chain<A, T>> R getChain(Class<? extends R> clazz) throws Exception {
+        String key = clazz.getCanonicalName();
+        Object chain = sChainMap.get(key);
+        if (chain == null) {
+            Provider annotation = clazz.getAnnotation(Provider.class);
+            Class<?> value = annotation.value();
+            if (annotation != null) {
+                chain = value.newInstance();
             }
-            return (R) chain;
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (chain != null) {
+                sChainMap.put(key, chain);
+            }
         }
-        return null;
+        return (R) chain;
     }
 }
