@@ -10,6 +10,9 @@ import top.andnux.chain.core.Utils;
 import v.systems.Account;
 import v.systems.Blockchain;
 import v.systems.contract.TokenBalance;
+import v.systems.transaction.PaymentTransaction;
+import v.systems.transaction.ProvenTransaction;
+import v.systems.transaction.TransactionFactory;
 import v.systems.type.NetworkType;
 
 public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams>
@@ -137,6 +140,25 @@ public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams
 
     @Override
     public void transfer(VsysTransferParams params, Callback<String> callback) {
-
+        AppExecutors executors = AppExecutors.getInstance();
+        executors.networkIO().execute(() -> {
+            try {
+                Blockchain blockchain = getBlockChain();
+                Account account = new Account(getNetworkType(), params.getPrivateKey());
+                PaymentTransaction tx = TransactionFactory.buildPaymentTx(params.getTo(),
+                        Long.valueOf(params.getQuantity()));
+                tx.setFee(params.getFee());
+                ProvenTransaction result = account.sendTransaction(blockchain, tx);
+                String transactionHash = result.getId();
+                executors.mainThread().execute(() -> {
+                    if (callback != null) callback.onSuccess(transactionHash);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                executors.mainThread().execute(() -> {
+                    if (callback != null) callback.onError(e);
+                });
+            }
+        });
     }
 }
