@@ -44,14 +44,14 @@ public class GrpcClient {
 
     public void connetFullNode(String fullnode) {
         channelFull = ManagedChannelBuilder.forTarget(fullnode)
-                .usePlaintext(true)
+                .usePlaintext()
                 .build();
         blockingStubFull = WalletGrpc.newBlockingStub(channelFull);
     }
 
     public void connetSolidityNode(String soliditynode) {
         channelSolidity = ManagedChannelBuilder.forTarget(soliditynode)
-                .usePlaintext(true)
+                .usePlaintext()
                 .build();
         blockingStubSolidity = WalletSolidityGrpc.newBlockingStub(channelSolidity);
         blockingStubExtension = WalletExtensionGrpc.newBlockingStub(channelSolidity);
