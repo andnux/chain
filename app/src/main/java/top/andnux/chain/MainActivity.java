@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import top.andnux.chain.btc.BtcAccount;
+import top.andnux.chain.btc.BtcChain;
 import top.andnux.chain.core.Callback;
 import top.andnux.chain.core.ChainFactory;
 import top.andnux.chain.eos.EosAccount;
@@ -18,15 +20,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        try {
-//            BtcChain chain = ChainFactory.getChain(BtcChain.class);
-//            if (chain != null) {
-//                BtcAccount account = chain.createAccount();
-//                Log.d("MainActivity", "account:" + account);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            BtcChain chain = ChainFactory.getChain(BtcChain.class);
+            if (chain != null) {
+                BtcAccount account = chain.createAccount();
+                Log.d("MainActivity", "account:" + account);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        try {
 //            EosChain chain = ChainFactory.getChain(EosChain.class);
 //            if (chain != null) {
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 EosAccount key = chain.createAccountByPrivateKey("5Jh9NSBXPWsN77Qfp5AfhGfMCg2DLSknXwmjTmN8c9f56ML2Wne");
                 Log.d("MainActivity", "key:" + key);
                 EosTransferParams params = new EosTransferParams();
-                params.setPermission("owner");
                 params.setPrivateKey("5JNNm5t64sC6HRXT2oMDJJSULyciSHztpqKqdm62RHChvBjmMSB");
                 params.setTo("eogt1itsdbll");
                 params.setQuantity("0.0001 EOS");

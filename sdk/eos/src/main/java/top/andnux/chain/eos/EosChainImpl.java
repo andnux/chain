@@ -1,38 +1,14 @@
 package top.andnux.chain.eos;
 
-import android.util.Log;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import one.block.eosiojava.implementations.ABIProviderImpl;
-import one.block.eosiojava.interfaces.IABIProvider;
-import one.block.eosiojava.interfaces.IRPCProvider;
-import one.block.eosiojava.interfaces.ISerializationProvider;
-import one.block.eosiojava.models.rpcProvider.Action;
-import one.block.eosiojava.models.rpcProvider.Authorization;
-import one.block.eosiojava.models.rpcProvider.response.PushTransactionResponse;
-import one.block.eosiojava.session.TransactionProcessor;
-import one.block.eosiojava.session.TransactionSession;
-import one.block.eosiojava.utilities.EOSFormatter;
-import one.block.eosiojavaabieosserializationprovider.AbiEosSerializationProviderImpl;
-import one.block.eosiojavarpcprovider.implementations.EosioJavaRpcProviderImpl;
-import one.block.eosiosoftkeysignatureprovider.SoftKeySignatureProviderImpl;
 import top.andnux.chain.core.AbstractChain;
 import top.andnux.chain.core.AppEnv;
 import top.andnux.chain.core.AppExecutors;
 import top.andnux.chain.core.Callback;
 import top.andnux.chain.core.MeasureCallback;
-import top.andnux.chain.eos.bean.CurrencyBalanceRequest;
+import top.andnux.chain.eos.api.result.PushTransactionResults;
 import top.andnux.chain.eos.crypto.ec.EosPrivateKey;
 
 public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> implements EosChain {
@@ -74,27 +50,11 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
         final AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                String url = getUrl(AppEnv.getEnv(), "");
-                IRPCProvider rpcProvider = new EosioJavaRpcProviderImpl(url);
-                ISerializationProvider serializationProvider = new AbiEosSerializationProviderImpl();
-                IABIProvider abiProvider = new ABIProviderImpl(rpcProvider, serializationProvider);
-                SoftKeySignatureProviderImpl signatureProvider = new SoftKeySignatureProviderImpl();
-                signatureProvider.importKey(params.getPrivateKey());
-                TransactionSession session = new TransactionSession(
-                        serializationProvider, rpcProvider, abiProvider, signatureProvider);
-                TransactionProcessor processor = session.getTransactionProcessor();
-                Map<String, String> data = new HashMap<>();
-                data.put("from", params.getFrom());
-                data.put("to", params.getTo());
-                data.put("quantity", params.getQuantity());
-                data.put("memo", params.getMemo());
-                List<Authorization> authorizations = new ArrayList<>();
-                authorizations.add(new Authorization(params.getFrom(), params.getPermission()));
-                List<Action> actions = new ArrayList<>();
-                actions.add(new Action(params.getAccount(), params.getName(), authorizations, JSON.toJSONString(data)));
-                processor.prepare(actions);
-                PushTransactionResponse pushTransactionResponse = processor.signAndBroadcast();
-                final String txId = pushTransactionResponse.getTransactionId();
+                Eos4j eos4j = new Eos4j(getUrl(AppEnv.getEnv(), ""));
+                PushTransactionResults transfer = eos4j.transfer(params.getPrivateKey(),
+                        params.getContract(), params.getFrom(),
+                        params.getTo(), params.getQuantity(), params.getMemo());
+                String txId = transfer.getTransactionId();
                 instance.mainThread().execute(() -> {
                     if (callback != null) {
                         callback.onSuccess(txId);
@@ -122,8 +82,8 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
         final AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                IRPCProvider rpcProvider = new EosioJavaRpcProviderImpl(url);
-                rpcProvider.getInfo().getHeadBlockNum();
+                Eos4j eos4j = new Eos4j(getUrl(AppEnv.getEnv(), ""));
+                eos4j.getChainInfo();
                 long end = System.currentTimeMillis();
                 instance.mainThread().execute(() -> {
                     if (callback != null) {
@@ -151,19 +111,10 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
         final AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                String url = getUrl(AppEnv.getEnv(), "");
-                EosioJavaRpcProviderImpl rpcProvider = new EosioJavaRpcProviderImpl(url);
-                MediaType contentType = MediaType.parse("application/json");
-                CurrencyBalanceRequest request = new CurrencyBalanceRequest();
-                request.setCode(contract);
-                request.setAccount(account);
-                request.setSymbol(token);
-                String json = JSON.toJSONString(request);
-                String balance = rpcProvider.getCurrencyBalance(RequestBody.create(contentType, json));
-                JSONArray jsonArray = JSONArray.parseArray(balance);
-                balance = (String) jsonArray.get(0);
-                balance = balance.split(" ")[0];
-                String finalBalance = balance;
+                Eos4j eos4j = new Eos4j(getUrl(AppEnv.getEnv(), ""));
+                BigDecimal balance = eos4j.getCurrencyBalance(account, contract, token);
+                DecimalFormat format = new DecimalFormat("###.0000");
+                String finalBalance = format.format(balance);
                 instance.mainThread().execute(() -> {
                     if (callback != null) {
                         callback.onSuccess(finalBalance);
