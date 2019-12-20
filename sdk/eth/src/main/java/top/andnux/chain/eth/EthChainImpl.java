@@ -53,16 +53,16 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
     }
 
     @Override
-    public EthAccount createAccount() throws Exception {
-        return createAccount("");
+    public EthAccount create() throws Exception {
+        return create("");
     }
 
     @Override
-    public EthAccount createAccount(String password) throws Exception {
-        return createAccountByPathAndMnemonic("m/44'/60'/0'/0/0", Utils.createMnemonic(Words.TWELVE), password);
+    public EthAccount create(String password) throws Exception {
+        return createByPathAndMnemonic("m/44'/60'/0'/0/0", Utils.createMnemonic(Words.TWELVE), password);
     }
     @Override
-    public EthAccount createAccountByPathAndMnemonic(String path, String mnemonics, String password) throws Exception {
+    public EthAccount createByPathAndMnemonic(String path, String mnemonics, String password) throws Exception {
         String[] pathArray = path.split("/");
         byte[] seedBytes = MnemonicUtils.generateSeed(mnemonics, "");
         if (seedBytes == null) {
@@ -97,7 +97,7 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
     }
 
     @Override
-    public EthAccount createAccountByKeyStore(String path, String keyStore, String password) throws Exception {
+    public EthAccount createByKeyStore(String path, String keyStore, String password) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         WalletFile walletFile = objectMapper.readValue(keyStore, WalletFile.class);
@@ -116,7 +116,7 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
     }
 
     @Override
-    public EthAccount createAccountByPrivateKey(String privateKey) throws Exception {
+    public EthAccount createByPrivateKey(String privateKey) throws Exception {
         return null;
     }
 

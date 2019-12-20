@@ -27,13 +27,13 @@ import top.andnux.chian.utils.http.HttpRequest;
 public class BtcChainImpl extends AbstractChain<BtcAccount, BtcTransferParams> implements BtcChain {
 
     @Override
-    public BtcAccount createAccount() throws Exception {
-        return createAccount(BtcAddressType.START_1);
+    public BtcAccount create() throws Exception {
+        return create(BtcAddressType.START_1);
     }
 
     @Override
-    public BtcAccount createAccountByPrivateKey(String privateKey) throws Exception {
-        return createAccountByPrivateKey(privateKey, BtcAddressType.START_1);
+    public BtcAccount createByPrivateKey(String privateKey) throws Exception {
+        return createByPrivateKey(privateKey, BtcAddressType.START_1);
     }
 
     @Override
@@ -51,18 +51,18 @@ public class BtcChainImpl extends AbstractChain<BtcAccount, BtcTransferParams> i
     }
 
     @Override
-    public BtcAccount createAccountByPath(String path) throws Exception {
-        return createAccountByMnemonicAndPath(Utils.createMnemonic(Words.TWELVE), path, BtcAddressType.START_1);
+    public BtcAccount createByPath(String path) throws Exception {
+        return createByMnemonicAndPath(Utils.createMnemonic(Words.TWELVE), path, BtcAddressType.START_1);
     }
 
     @Override
-    public BtcAccount createAccount(BtcAddressType type) throws Exception {
-        return createAccountByMnemonicAndPath(Utils.createMnemonic(Words.TWELVE), getPath(), type);
+    public BtcAccount create(BtcAddressType type) throws Exception {
+        return createByMnemonicAndPath(Utils.createMnemonic(Words.TWELVE), getPath(), type);
     }
 
     @Override
-    public BtcAccount createAccountByMnemonic(String mnemonic) throws Exception {
-        return createAccountByMnemonicAndPath(Utils.createMnemonic(Words.TWELVE), getPath(), BtcAddressType.START_1);
+    public BtcAccount createByMnemonic(String mnemonic) throws Exception {
+        return createByMnemonicAndPath(Utils.createMnemonic(Words.TWELVE), getPath(), BtcAddressType.START_1);
     }
 
     private String getPath() {
@@ -70,12 +70,12 @@ public class BtcChainImpl extends AbstractChain<BtcAccount, BtcTransferParams> i
     }
 
     @Override
-    public BtcAccount createAccountByMnemonic(String mnemonic, BtcAddressType type) throws Exception {
-        return createAccountByMnemonicAndPath(mnemonic, getPath(), type);
+    public BtcAccount createByMnemonic(String mnemonic, BtcAddressType type) throws Exception {
+        return createByMnemonicAndPath(mnemonic, getPath(), type);
     }
 
     @Override
-    public BtcAccount createAccountByMnemonicAndPath(String mnemonic, String path, BtcAddressType type) throws Exception {
+    public BtcAccount createByMnemonicAndPath(String mnemonic, String path, BtcAddressType type) throws Exception {
         byte[] seedBytes = MnemonicCode.toSeed(Collections.singletonList(mnemonic), "");
         DeterministicKey dkKey = HDKeyDerivation.createMasterPrivateKey(seedBytes);
         String[] pathArray = path.split("/");
@@ -119,7 +119,7 @@ public class BtcChainImpl extends AbstractChain<BtcAccount, BtcTransferParams> i
     }
 
     @Override
-    public BtcAccount createAccountByPrivateKey(String privateKey, BtcAddressType type) throws Exception {
+    public BtcAccount createByPrivateKey(String privateKey, BtcAddressType type) throws Exception {
         BtcAccount account = new BtcAccount();
         NetworkParameters params = AppEnv.getEnv() == AppEnv.MAIN ? MainNetParams.get() : TestNet3Params.get();
         ECKey ecKey = DumpedPrivateKey.fromBase58(params, privateKey).getKey();

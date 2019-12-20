@@ -24,14 +24,14 @@ public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams
     }
 
     @Override
-    public VsysAccount createAccount() throws Exception {
-        return createAccountByNonce(0);
+    public VsysAccount create() throws Exception {
+        return createByNonce(0);
     }
 
     @Override
-    public VsysAccount createAccountByNonce(Integer nonce) throws Exception {
+    public VsysAccount createByNonce(Integer nonce) throws Exception {
         String mnemonic = Utils.createMnemonic(Words.FIFTEEN);
-        return createAccountByMnemonicAndNonce(mnemonic, nonce);
+        return createByMnemonicAndNonce(mnemonic, nonce);
     }
 
     private NetworkType getNetworkType() {
@@ -39,7 +39,7 @@ public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams
     }
 
     @Override
-    public VsysAccount createAccountByPrivateKey(String privateKey) throws Exception {
+    public VsysAccount createByPrivateKey(String privateKey) throws Exception {
         Account account = new Account(getNetworkType(), privateKey);
         return new VsysAccount(account.getPrivateKey(), account.getPublicKey(), account.getAddress());
     }
@@ -59,7 +59,7 @@ public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams
     }
 
     @Override
-    public VsysAccount createAccountByMnemonicAndNonce(String mnemonic, Integer nonce) throws Exception {
+    public VsysAccount createByMnemonicAndNonce(String mnemonic, Integer nonce) throws Exception {
         Account account = new Account(getNetworkType(), mnemonic, nonce);
         return new VsysAccount(account.getPrivateKey(), account.getPublicKey(),
                 mnemonic, account.getAddress());

@@ -4,9 +4,9 @@ public interface Chain<A extends Account, T extends TransferParams> {
 
     String name();
 
-    A createAccount() throws Exception;
+    A create() throws Exception;
 
-    A createAccountByPrivateKey(String privateKey) throws Exception;
+    A createByPrivateKey(String privateKey) throws Exception;
 
     String getUrlByUser(AppEnv env, String defaultUrl);
 

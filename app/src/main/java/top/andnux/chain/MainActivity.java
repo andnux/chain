@@ -23,55 +23,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             BtcChain chain = ChainFactory.getChain(BtcChain.class);
             if (chain != null) {
-                BtcAccount account = chain.createAccount();
+                BtcAccount account = chain.create();
                 Log.d("MainActivity", "account:" + account);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        try {
-//            EosChain chain = ChainFactory.getChain(EosChain.class);
-//            if (chain != null) {
-//                chain.getBalance("zhangchun123", new Callback<String>() {
-//                    @Override
-//                    public void onSuccess(String data) {
-//                        Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        try {
-            EosChain chain = ChainFactory.getChain(EosChain.class);
-            if (chain != null) {
-                EosAccount key = chain.createAccountByPrivateKey("5Jh9NSBXPWsN77Qfp5AfhGfMCg2DLSknXwmjTmN8c9f56ML2Wne");
-                Log.d("MainActivity", "key:" + key);
-                EosTransferParams params = new EosTransferParams();
-                params.setPrivateKey("5JNNm5t64sC6HRXT2oMDJJSULyciSHztpqKqdm62RHChvBjmMSB");
-                params.setTo("eogt1itsdbll");
-                params.setQuantity("0.0001 EOS");
-                params.setFrom("zhangchunlin");
-                chain.transfer(params, new Callback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        String message = e.getMessage();
-                        if (message != null) {
-                          Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
         } catch (Exception e) {
             e.printStackTrace();

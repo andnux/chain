@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        DecimalFormat format = new DecimalFormat("###.0000");
+        DecimalFormat format = new DecimalFormat("#0.0000");
         String s = format.format(new BigDecimal("999999999999999.555555555"));
         System.out.println(s);
     }
