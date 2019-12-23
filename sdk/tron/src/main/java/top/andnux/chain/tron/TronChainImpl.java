@@ -1,5 +1,7 @@
 package top.andnux.chain.tron;
 
+import com.alibaba.fastjson.JSON;
+
 import org.bouncycastle.util.encoders.Hex;
 import org.tron.common.wallet.TronWallet;
 
@@ -14,6 +16,7 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
         implements TronChain {
 
     private File mFile;
+    private TronNode defNode = new TronNode();
 
     @Override
     public String name() {
@@ -28,20 +31,6 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
     @Override
     public TronAccount createByPrivateKey(String privateKey) throws Exception {
         return createByPrivateKey(privateKey, "");
-    }
-
-    @Override
-    public String getDefaultUrl(AppEnv env) {
-        String defaultUrl = "";
-        switch (env) {
-            case MAIN:
-                defaultUrl = "";
-                break;
-            case TEST:
-                defaultUrl = "";
-                break;
-        }
-        return defaultUrl;
     }
 
     @Override
@@ -61,7 +50,7 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
     public TronAccount createByPrivateKey(String privateKey, String password) throws Exception {
         TronWallet tronWallet = TronWallet.generateKeyForPrivateKey(privateKey);
         mFile = new File(getApp().getExternalCacheDir(), "keystore");
-        if (!mFile.exists())mFile.mkdirs();
+        if (!mFile.exists()) mFile.mkdirs();
         String mnemonic = tronWallet.getMnemonic();
         String keyStore = tronWallet.getKeyStore(password, mFile);
         String publicKey = Hex.toHexString(tronWallet.getPublicKey());
@@ -101,6 +90,23 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
         String privateKey = Hex.toHexString(tronWallet.getPrivateKey());
         String keyStore = tronWallet.getKeyStore(password, mFile);
         return new TronAccount(privateKey, publicKey, address, mnemonic, keyStore);
+    }
+
+    @Override
+    public String getDefaultUrl(AppEnv env) {
+        String defaultUrl = "";
+        switch (env) {
+            case MAIN:
+                defNode.setFullNode("123");
+                defNode.setSolidityNode("123");
+                break;
+            case TEST:
+                defNode.setFullNode("321");
+                defNode.setSolidityNode("321");
+                break;
+        }
+        defaultUrl = JSON.toJSONString(defNode);
+        return defaultUrl;
     }
 
     @Override

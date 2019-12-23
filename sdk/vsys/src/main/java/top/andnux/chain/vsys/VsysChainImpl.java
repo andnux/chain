@@ -89,7 +89,7 @@ public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams
                 e.printStackTrace();
                 executors.mainThread().execute(() -> {
                     if (callback != null) {
-                        callback.onSuccess(name(), url, index, -1);
+                        callback.onError(name(), url, index, e);
                     }
                 });
             }
