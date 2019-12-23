@@ -25,17 +25,17 @@ public class ChainFactory {
         return (R) chain;
     }
 
-    public static <A extends Account, T extends TransferParams> void put(String key, Chain<A, T> value) {
+    public static <A extends Account, T extends TransferParams> void putChain(String key, Chain<A, T> value) {
         sChainMap.put(key, value);
     }
 
     @SuppressWarnings("all")
-    public static <A extends Account, T extends TransferParams, R extends Chain<A, T>> R remove(String key) {
+    public static <A extends Account, T extends TransferParams, R extends Chain<A, T>> R removeChain(String key) {
         return (R) sChainMap.remove(key);
     }
 
     @SuppressWarnings("all")
-    public static <A extends Account, T extends TransferParams, R extends Chain<A, T>> R get(String key) {
+    public static <A extends Account, T extends TransferParams, R extends Chain<A, T>> R getChain(String key) {
         return (R) sChainMap.get(key);
     }
 
