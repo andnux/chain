@@ -14,6 +14,11 @@ import top.andnux.chain.eos.crypto.ec.EosPrivateKey;
 public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> implements EosChain {
 
     @Override
+    public String name() {
+        return "EOS";
+    }
+
+    @Override
     public EosAccount create() throws Exception{
         EosPrivateKey privateKey = new EosPrivateKey();
         EosAccount eosAccount = new EosAccount();
@@ -69,11 +74,6 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
                 });
             }
         });
-    }
-
-    @Override
-    public String name() {
-        return "EOS";
     }
 
     @Override

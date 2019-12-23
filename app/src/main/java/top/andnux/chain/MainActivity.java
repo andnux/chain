@@ -1,13 +1,12 @@
 package top.andnux.chain;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import top.andnux.chain.btc.BtcAccount;
-import top.andnux.chain.btc.BtcChain;
 import top.andnux.chain.core.ChainFactory;
+import top.andnux.chain.eos.EosChain;
+import top.andnux.chain.eos.EosChainImpl;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,11 +15,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            BtcChain chain = ChainFactory.getChain(BtcChain.class);
-            if (chain != null) {
-                BtcAccount account = chain.create();
-                Log.d("MainActivity", "account:" + account);
-            }
+            ChainFactory.putChain("eos", new EosChainImpl());
+            EosChain chain = ChainFactory.getChain("eos");
         } catch (Exception e) {
             e.printStackTrace();
         }

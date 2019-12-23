@@ -2,6 +2,7 @@ package top.andnux.chain.core;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ChainFactory {
 
@@ -31,12 +32,24 @@ public class ChainFactory {
 
     @SuppressWarnings("all")
     public static <A extends Account, T extends TransferParams, R extends Chain<A, T>> R removeChain(String key) {
-        return (R) sChainMap.remove(key);
+        Set<String> strings = sChainMap.keySet();
+        for (String string : strings) {
+            if (string.equalsIgnoreCase(key)) {
+                return (R) sChainMap.remove(key);
+            }
+        }
+        return null;
     }
 
     @SuppressWarnings("all")
     public static <A extends Account, T extends TransferParams, R extends Chain<A, T>> R getChain(String key) {
-        return (R) sChainMap.get(key);
+        Set<String> strings = sChainMap.keySet();
+        for (String string : strings) {
+            if (string.equalsIgnoreCase(key)) {
+                return (R) sChainMap.get(key);
+            }
+        }
+        return null;
     }
 
     public static Map<String, Object> getChainMap() {
