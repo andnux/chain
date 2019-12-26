@@ -77,7 +77,12 @@ public class ByteUtils {
     private static int[] longToBytes(Long n) {
         ByteBuffer hi = ByteBuffer.allocate(Long.BYTES).order(ByteOrder.BIG_ENDIAN).putLong(n);
         byte[] buf = hi.array();
-        int[] a = IntStream.range(0, buf.length).map(i -> buf[i] & 0xff).toArray();
+        int[] a = new int[buf.length];
+        for (int i = 0; i < a.length; i++) {
+            byte b = buf[i];
+            int data = b & 0xff;
+            a[i] = data;
+        }
         return a;
     }
 

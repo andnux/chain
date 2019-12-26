@@ -1,7 +1,5 @@
 package top.andnux.chain.core;
 
-import java.math.BigDecimal;
-
 public class TransferParams {
 
     private String from;

@@ -2,8 +2,13 @@ package top.andnux.chain.eos;
 
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
+import java.security.SecureRandom;
+
+import io.github.novacrypto.bip39.MnemonicGenerator;
+import io.github.novacrypto.bip39.SeedCalculator;
+import io.github.novacrypto.bip39.Words;
+import io.github.novacrypto.bip39.wordlists.English;
+import top.andnux.chain.eos.crypto.ec.EosPrivateKey;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -13,8 +18,13 @@ import java.text.DecimalFormat;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        DecimalFormat format = new DecimalFormat("#0.0000");
-        String s = format.format(new BigDecimal("999999999999999.555555555"));
-        System.out.println(s);
+        StringBuilder sb = new StringBuilder();
+        byte[] entropy = new byte[Words.TWELVE.byteLength()];
+        new SecureRandom().nextBytes(entropy);
+        new MnemonicGenerator(English.INSTANCE).createMnemonic(entropy, sb::append);
+        byte[] seed = new SeedCalculator().calculateSeed(sb.toString(), "");
+        EosPrivateKey eosPrivateKey = new EosPrivateKey(seed);
+        System.out.println(eosPrivateKey.toWif());
+        System.out.println(eosPrivateKey.getPublicKey().toString());
     }
 }

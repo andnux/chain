@@ -12,7 +12,7 @@ public class WorkFlow {
 
     private boolean isDisposed = false;
 
-    public WorkFlow(SparseArray<WorkNode> flowNodes) {
+    private WorkFlow(SparseArray<WorkNode> flowNodes) {
         this.flowNodes = flowNodes;
     }
 

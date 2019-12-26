@@ -2,10 +2,11 @@ package top.andnux.chain.eos.client.transaction;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import top.andnux.chain.eos.Eos4j;
+import top.andnux.chain.eos.EosClient;
 import top.andnux.chain.eos.api.request.push_transaction.action.BuyrambytesActionData;
 import top.andnux.chain.eos.api.request.push_transaction.action.DelegatebwActionData;
 import top.andnux.chain.eos.api.request.push_transaction.action.NewaccountActionData;
@@ -18,8 +19,6 @@ import top.andnux.chain.eos.bean.transaction.Transaction;
 import top.andnux.chain.eos.client.exception.ApiException;
 import top.andnux.chain.eos.client.pack.AssetQuantity;
 import top.andnux.chain.eos.crypto.EccTool;
-import top.andnux.chain.eos.crypto.ec.EcDsa;
-import top.andnux.chain.eos.crypto.ec.EcSignature;
 
 /**
  * 交易构造器
@@ -29,13 +28,13 @@ import top.andnux.chain.eos.crypto.ec.EcSignature;
  */
 public class TransactionBuilder {
 
-	private Eos4j eos4j;
+	private EosClient eos4j;
 
-	private TransactionBuilder(Eos4j eos4j) {
+	private TransactionBuilder(EosClient eos4j) {
 		this.eos4j = eos4j;
 	}
 
-	public static TransactionBuilder newInstance(Eos4j eos4j) {
+	public static TransactionBuilder newInstance(EosClient eos4j) {
 		return new TransactionBuilder(eos4j);
 	}
 
@@ -172,7 +171,7 @@ public class TransactionBuilder {
 	public SignedTransactionToPush buildVoteProducerRawTx(String pk, String voter, String proxy, List<String> producers)
 			throws ApiException, IOException {
 		return buildRawTx(pk, () -> {
-			producers.sort((h1, h2) -> h1.compareTo(h2));
+			Arrays.sort(producers.toArray(new String[producers.size()]), (h1, h2) -> h1.compareTo(h2));
 			List<Action> actions = new ArrayList<>();
 			// data
 			VoteProducerActionData data = new VoteProducerActionData();

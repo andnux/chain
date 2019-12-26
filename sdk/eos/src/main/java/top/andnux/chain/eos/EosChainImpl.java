@@ -55,7 +55,7 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
         final AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                Eos4j eos4j = new Eos4j(getUrl(AppEnv.getEnv(), ""));
+                EosClient eos4j = new EosClient(getUrl(AppEnv.getEnv(), ""));
                 PushTransactionResults transfer = eos4j.transfer(params.getPrivateKey(),
                         params.getContract(), params.getFrom(),
                         params.getTo(), params.getQuantity(), params.getMemo());
@@ -82,7 +82,7 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
         final AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                Eos4j eos4j = new Eos4j(getUrl(AppEnv.getEnv(), ""));
+                EosClient eos4j = new EosClient(getUrl(AppEnv.getEnv(), ""));
                 eos4j.getChainInfo();
                 long end = System.currentTimeMillis();
                 instance.mainThread().execute(() -> {
@@ -111,7 +111,7 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
         final AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                Eos4j eos4j = new Eos4j(getUrl(AppEnv.getEnv(), ""));
+                EosClient eos4j = new EosClient(getUrl(AppEnv.getEnv(), ""));
                 BigDecimal balance = eos4j.getCurrencyBalance(account, contract, token);
                 DecimalFormat format = new DecimalFormat("#0.0000");
                 String finalBalance = format.format(balance);

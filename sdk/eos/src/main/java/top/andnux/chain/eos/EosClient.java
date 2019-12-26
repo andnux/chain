@@ -36,17 +36,17 @@ import top.andnux.chain.eos.utils.Hex;
  * @author wuwei
  *
  */
-public class Eos4j {
+public class EosClient {
 
 	private RpcService rpcService;
 
 	private TransactionBuilder txBuilder;
 
-	public Eos4j(String baseUrl) {
+	public EosClient(String baseUrl) {
 		this(baseUrl, null);
 	}
 
-	public Eos4j(String baseUrl, String host) {
+	public EosClient(String baseUrl, String host) {
 		rpcService = Generator.createService(RpcService.class, baseUrl, host);
 		txBuilder = TransactionBuilder.newInstance(this);
 	}
@@ -212,12 +212,12 @@ public class Eos4j {
 		List<String> list = Generator.executeSync(rpcService.getCurrencyBalance(req));
 		Map<String, BigDecimal> ret = new HashMap<String, BigDecimal>();
 		if (list != null) {
-			list.forEach(it -> {
+			for (String it : list) {
 				String[] s = it.split(" ");
 				String coinTypeCode = s[1];
 				BigDecimal value = new BigDecimal(s[0]);
 				ret.put(coinTypeCode, value);
-			});
+			}
 		}
 		return ret;
 	}
