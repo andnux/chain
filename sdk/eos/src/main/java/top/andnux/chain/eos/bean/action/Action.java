@@ -9,11 +9,7 @@ import java.util.List;
 import top.andnux.chain.eos.client.pack.Pack;
 import top.andnux.chain.eos.client.pack.PackType;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Action {
 	

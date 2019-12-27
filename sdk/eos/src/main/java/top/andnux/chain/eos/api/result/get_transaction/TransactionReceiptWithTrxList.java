@@ -8,11 +8,7 @@ import java.util.List;
 import top.andnux.chain.eos.bean.block.TransactionReceiptHeader;
 import top.andnux.chain.eos.bean.transaction.PackedTransaction;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionReceiptWithTrxList<T extends PackedTransaction> extends TransactionReceiptHeader {
 

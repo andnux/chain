@@ -5,11 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import top.andnux.chain.eos.bean.trace.TransactionTrace;
 
-/**
- * 
- * @author wangyan
- *
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PushTransactionResults {
 

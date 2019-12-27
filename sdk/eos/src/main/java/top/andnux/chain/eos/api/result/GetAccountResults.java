@@ -10,11 +10,7 @@ import java.util.List;
 import top.andnux.chain.eos.bean.AccountResourceLimit;
 import top.andnux.chain.eos.bean.authority.Permission;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GetAccountResults {
 

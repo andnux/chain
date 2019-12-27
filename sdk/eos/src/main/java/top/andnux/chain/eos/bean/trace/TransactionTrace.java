@@ -7,11 +7,7 @@ import java.util.List;
 
 import top.andnux.chain.eos.bean.block.TransactionReceiptHeader;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionTrace {
 

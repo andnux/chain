@@ -3,7 +3,6 @@ package top.andnux.chain.eos.client.http;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Call;
@@ -13,11 +12,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import top.andnux.chain.eos.api.result.error.ApiError;
 import top.andnux.chain.eos.client.exception.ApiException;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 public class Generator {
 
 	private static OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -26,22 +21,16 @@ public class Generator {
 
 	private static Retrofit retrofit;
 
-	public static <S> S createService(Class<S> serviceClass, String baseUrl, String Host) {
-		if(Host != null) {
-			httpClientBuilder.addInterceptor(new Interceptor() {  
-				@Override
-				public okhttp3.Response intercept(Chain chain) throws IOException {
-					Request original = chain.request();
-					Request request = original.newBuilder()
-							.header("Host", Host)
-							.method(original.method(), original.body())
-							.build();
-					
-					return chain.proceed(request);
-				}
-			});
-		}
-		
+	public static <S> S createService(Class<S> serviceClass, String baseUrl) {
+		httpClientBuilder.addInterceptor(chain -> {
+			Request original = chain.request();
+			Request request = original.newBuilder()
+					.method(original.method(), original.body())
+					.build();
+
+			return chain.proceed(request);
+		});
+
 		retrofit = builder.baseUrl(baseUrl).client(httpClientBuilder.build())
 				.addConverterFactory(JacksonConverterFactory.create()).build();
 		return retrofit.create(serviceClass);

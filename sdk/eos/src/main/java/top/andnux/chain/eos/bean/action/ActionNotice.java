@@ -6,11 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import top.andnux.chain.eos.client.pack.Pack;
 import top.andnux.chain.eos.client.pack.PackType;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ActionNotice extends Action {
 	@Pack(PackType.name)

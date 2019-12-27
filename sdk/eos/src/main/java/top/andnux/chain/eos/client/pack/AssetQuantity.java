@@ -1,11 +1,7 @@
 package top.andnux.chain.eos.client.pack;
 
 import java.security.InvalidParameterException;
-/**
- * 
- * @author wangyan
- *
- */
+
 public class AssetQuantity {
 	/**
 	 * 解析 "1.00 EOS" 到 "1.00 4,EOS@eosio.token"

@@ -1,10 +1,6 @@
 package top.andnux.chain.eos.client.exception;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 public class CryptoException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

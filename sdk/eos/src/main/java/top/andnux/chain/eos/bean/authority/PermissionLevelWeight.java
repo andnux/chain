@@ -5,11 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import top.andnux.chain.eos.bean.action.PermissionLevel;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PermissionLevelWeight {
 	

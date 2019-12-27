@@ -2,11 +2,7 @@ package top.andnux.chain.eos.bean.block_header;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SignedBlockHeader extends BlockHeader {
 	

@@ -7,11 +7,7 @@ import top.andnux.chain.eos.api.result.get_block.BlockPackedTransaction;
 import top.andnux.chain.eos.bean.block.SignedBlock;
 import top.andnux.chain.eos.bean.block.TransactionReceipt;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GetBlockResult extends SignedBlock<TransactionReceipt<BlockPackedTransaction>> {
 

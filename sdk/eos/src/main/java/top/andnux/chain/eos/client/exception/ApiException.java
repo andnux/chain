@@ -5,11 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import top.andnux.chain.eos.api.result.error.ApiError;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 public class ApiException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

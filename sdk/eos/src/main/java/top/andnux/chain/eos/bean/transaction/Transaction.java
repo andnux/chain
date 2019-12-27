@@ -10,11 +10,7 @@ import top.andnux.chain.eos.bean.Extensions;
 import top.andnux.chain.eos.bean.action.Action;
 import top.andnux.chain.eos.client.pack.Pack;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Transaction extends TransactionHeader {
 	

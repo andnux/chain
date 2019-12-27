@@ -5,11 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import top.andnux.chain.eos.bean.transaction.PackedTransaction;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionReceipt<T extends PackedTransaction> extends TransactionReceiptHeader {
 

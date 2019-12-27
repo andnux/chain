@@ -29,13 +29,6 @@ import top.andnux.chain.eos.client.transaction.TransactionBuilder;
 import top.andnux.chain.eos.utils.ByteBuffer;
 import top.andnux.chain.eos.utils.Hex;
 
-
-/**
- * EOS client
- * 
- * @author wuwei
- *
- */
 public class EosClient {
 
 	private RpcService rpcService;
@@ -43,11 +36,7 @@ public class EosClient {
 	private TransactionBuilder txBuilder;
 
 	public EosClient(String baseUrl) {
-		this(baseUrl, null);
-	}
-
-	public EosClient(String baseUrl, String host) {
-		rpcService = Generator.createService(RpcService.class, baseUrl, host);
+		rpcService = Generator.createService(RpcService.class, baseUrl);
 		txBuilder = TransactionBuilder.newInstance(this);
 	}
 
@@ -351,5 +340,4 @@ public class EosClient {
 			throws ApiException, IOException {
 		return pushTransaction(txBuilder.buildVoteProducerRawTx(pk, voter, proxy, producers));
 	}
-
 }

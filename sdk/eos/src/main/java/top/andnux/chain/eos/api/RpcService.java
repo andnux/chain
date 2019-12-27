@@ -21,11 +21,6 @@ import top.andnux.chain.eos.api.result.GetInfoResults;
 import top.andnux.chain.eos.api.result.GetTransactionResult;
 import top.andnux.chain.eos.api.result.PushTransactionResults;
 
-/**
- * 
- * @author wangyan
- *
- */
 public interface RpcService {
 
 	@GET("/v1/chain/get_info")

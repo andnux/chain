@@ -1,11 +1,7 @@
 package top.andnux.chain.eos.api.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GetCurrencyBalanceRequest {
 	/**

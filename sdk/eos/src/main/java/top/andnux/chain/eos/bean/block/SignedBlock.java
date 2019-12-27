@@ -9,11 +9,7 @@ import top.andnux.chain.eos.bean.Extensions;
 import top.andnux.chain.eos.bean.block_header.SignedBlockHeader;
 import top.andnux.chain.eos.bean.transaction.PackedTransaction;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SignedBlock<T extends TransactionReceipt<? extends PackedTransaction>> extends SignedBlockHeader {
 

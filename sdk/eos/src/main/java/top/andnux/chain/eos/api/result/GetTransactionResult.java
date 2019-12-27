@@ -9,11 +9,6 @@ import java.util.List;
 import top.andnux.chain.eos.api.result.get_transaction.TrxAndReceipt;
 import top.andnux.chain.eos.bean.trace.ActionTrace;
 
-/**
- * get_transaction
- * @author wangyan
- *
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GetTransactionResult {
 	@JsonProperty("id")

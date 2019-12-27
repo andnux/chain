@@ -2,11 +2,7 @@ package top.andnux.chain.eos.api.request;
 
 import top.andnux.chain.eos.bean.transaction.Transaction;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 public class PushTransactionRequest {
 
 	private String compression;

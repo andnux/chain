@@ -8,11 +8,7 @@ import java.util.List;
 import top.andnux.chain.eos.bean.transaction.PackedTransaction;
 import top.andnux.chain.eos.bean.transaction.Transaction;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BlockPackedTransaction extends PackedTransaction {
 

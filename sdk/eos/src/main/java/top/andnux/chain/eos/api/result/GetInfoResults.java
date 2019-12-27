@@ -1,16 +1,11 @@
 package top.andnux.chain.eos.api.result;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * 
- * @author wangyan
- *
- */
+import java.util.Date;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GetInfoResults {
 

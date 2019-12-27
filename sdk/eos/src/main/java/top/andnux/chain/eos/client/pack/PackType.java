@@ -1,10 +1,6 @@
 package top.andnux.chain.eos.client.pack;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 public enum PackType {
 
 	asset("asset"), 

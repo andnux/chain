@@ -6,11 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import top.andnux.chain.eos.bean.ActionReciept;
 import top.andnux.chain.eos.bean.action.Action;
 
-/**
- * 
- * @author wangyan
- *
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseActionTrace {
 	@JsonProperty("receipt")
