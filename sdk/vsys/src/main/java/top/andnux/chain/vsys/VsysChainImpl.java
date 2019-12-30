@@ -24,14 +24,19 @@ public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams
     }
 
     @Override
-    public VsysAccount create() throws Exception {
-        return createByNonce(0);
+    public VsysAccount generate() throws Exception {
+        return generate(0);
     }
 
     @Override
-    public VsysAccount createByNonce(Integer nonce) throws Exception {
-        String mnemonic = Utils.createMnemonic(Words.FIFTEEN);
-        return createByMnemonicAndNonce(mnemonic, nonce);
+    public VsysAccount generate(Integer nonce) throws Exception {
+        String mnemonic = Utils.generateMnemonic(Words.FIFTEEN);
+        return importByMnemonic(mnemonic, nonce);
+    }
+
+    @Override
+    public VsysAccount importByMnemonic(String mnemonic) throws Exception {
+        return importByMnemonic(mnemonic, 0);
     }
 
     private NetworkType getNetworkType() {
@@ -39,13 +44,14 @@ public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams
     }
 
     @Override
-    public VsysAccount createByPrivateKey(String privateKey) throws Exception {
+    public VsysAccount importPrivateKey(String privateKey) throws Exception {
         Account account = new Account(getNetworkType(), privateKey);
         return new VsysAccount(account.getPrivateKey(), account.getPublicKey(), account.getAddress());
     }
 
     @Override
-    public String getDefaultUrl(AppEnv env) {
+    public String getDefaultUrl() {
+        AppEnv env = AppEnv.getEnv();
         String defaultUrl = "";
         switch (env) {
             case MAIN:
@@ -59,7 +65,7 @@ public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams
     }
 
     @Override
-    public VsysAccount createByMnemonicAndNonce(String mnemonic, Integer nonce) throws Exception {
+    public VsysAccount importByMnemonic(String mnemonic, Integer nonce) throws Exception {
         Account account = new Account(getNetworkType(), mnemonic, nonce);
         return new VsysAccount(account.getPrivateKey(), account.getPublicKey(),
                 mnemonic, account.getAddress());
@@ -67,7 +73,7 @@ public class VsysChainImpl extends AbstractChain<VsysAccount, VsysTransferParams
 
     private Blockchain getBlockChain() {
         NetworkType type = getNetworkType();
-        return new Blockchain(type, getUrl(AppEnv.getEnv(), ""));
+        return new Blockchain(type, getUrl(""));
     }
 
     @Override

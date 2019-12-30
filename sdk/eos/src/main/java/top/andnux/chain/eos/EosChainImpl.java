@@ -19,7 +19,7 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
     }
 
     @Override
-    public EosAccount create() throws Exception{
+    public EosAccount generate() throws Exception{
         EosPrivateKey privateKey = new EosPrivateKey();
         EosAccount eosAccount = new EosAccount();
         eosAccount.setPrivateKey(privateKey.toString());
@@ -28,7 +28,7 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
     }
 
     @Override
-    public EosAccount createByPrivateKey(String privateKey) throws Exception{
+    public EosAccount importPrivateKey(String privateKey) throws Exception{
         EosPrivateKey eosPrivateKey = new EosPrivateKey(privateKey);
         EosAccount eosAccount = new EosAccount();
         eosAccount.setPrivateKey(eosPrivateKey.toString());
@@ -37,9 +37,9 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
     }
 
     @Override
-    public String getDefaultUrl(AppEnv env) {
+    public String getDefaultUrl() {
         String defaultUrl = "";
-        switch (env) {
+        switch (AppEnv.getEnv()) {
             case MAIN:
                 defaultUrl = "http://eos.newdex.one";
                 break;
@@ -55,7 +55,7 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
         final AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                EosClient eos4j = new EosClient(getUrl(AppEnv.getEnv(), ""));
+                EosClient eos4j = new EosClient(getUrl(""));
                 PushTransactionResults transfer = eos4j.transfer(params.getPrivateKey(),
                         params.getContract(), params.getFrom(),
                         params.getTo(), params.getQuantity(), params.getMemo());
@@ -82,7 +82,7 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
         final AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                EosClient eos4j = new EosClient(getUrl(AppEnv.getEnv(), ""));
+                EosClient eos4j = new EosClient(getUrl(""));
                 eos4j.getChainInfo();
                 long end = System.currentTimeMillis();
                 instance.mainThread().execute(() -> {
@@ -111,7 +111,7 @@ public class EosChainImpl extends AbstractChain<EosAccount, EosTransferParams> i
         final AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                EosClient eos4j = new EosClient(getUrl(AppEnv.getEnv(), ""));
+                EosClient eos4j = new EosClient(getUrl( ""));
                 BigDecimal balance = eos4j.getCurrencyBalance(account, contract, token);
                 DecimalFormat format = new DecimalFormat("#0.0000");
                 String finalBalance = format.format(balance);

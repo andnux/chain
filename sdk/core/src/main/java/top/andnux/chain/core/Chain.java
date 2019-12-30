@@ -4,19 +4,17 @@ public interface Chain<A extends Account, T extends TransferParams> {
 
     String name();
 
-    A create() throws Exception;
+    A importPrivateKey(String privateKey) throws Exception;
 
-    A createByPrivateKey(String privateKey) throws Exception;
+    String getUrlByUser(String defaultUrl);
 
-    String getUrlByUser(AppEnv env, String defaultUrl);
+    String getUrl(String defaultUrl);
 
-    String getUrl(AppEnv env, String defaultUrl);
+    void setUrlByUser(String url);
 
-    void setUrlByUser(AppEnv env, String url);
+    void setUrl(String url);
 
-    void setUrl(AppEnv env, String url);
-
-    String getDefaultUrl(AppEnv env);
+    String getDefaultUrl();
 
     void measure(String url, int index, MeasureCallback callback);
 

@@ -45,6 +45,8 @@ import top.andnux.chain.core.Utils;
 public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
         implements EthChain {
 
+
+    private static final String PATH = "m/44'/60'/0'/0/0";
     private File mFile;
 
     @Override
@@ -53,16 +55,22 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
     }
 
     @Override
-    public EthAccount create() throws Exception {
-        return create("");
+    public EthAccount importPrivateKey(String privateKey) throws Exception {
+        return null;
     }
 
     @Override
-    public EthAccount create(String password) throws Exception {
-        return createByPathAndMnemonic("m/44'/60'/0'/0/0", Utils.createMnemonic(Words.TWELVE), password);
+    public EthAccount generate(String password) throws Exception {
+        return importByPathAndMnemonic(PATH, Utils.generateMnemonic(Words.TWELVE), password);
     }
+
     @Override
-    public EthAccount createByPathAndMnemonic(String path, String mnemonics, String password) throws Exception {
+    public EthAccount importByMnemonic(String mnemonics, String password) throws Exception {
+        return importByPathAndMnemonic(PATH, mnemonics, password);
+    }
+
+    @Override
+    public EthAccount importByPathAndMnemonic(String path, String mnemonics, String password) throws Exception {
         String[] pathArray = path.split("/");
         byte[] seedBytes = MnemonicUtils.generateSeed(mnemonics, "");
         if (seedBytes == null) {
@@ -97,7 +105,12 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
     }
 
     @Override
-    public EthAccount createByKeyStore(String path, String keyStore, String password) throws Exception {
+    public EthAccount importByKeyStore(String keyStore, String password) throws Exception {
+        return importByKeyStore(PATH, keyStore, password);
+    }
+
+    @Override
+    public EthAccount importByKeyStore(String path, String keyStore, String password) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         WalletFile walletFile = objectMapper.readValue(keyStore, WalletFile.class);
@@ -116,12 +129,8 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
     }
 
     @Override
-    public EthAccount createByPrivateKey(String privateKey) throws Exception {
-        return null;
-    }
-
-    @Override
-    public String getDefaultUrl(AppEnv env) {
+    public String getDefaultUrl() {
+        AppEnv env = AppEnv.getEnv();
         String defaultUrl = "";
         switch (env) {
             case MAIN:
@@ -164,7 +173,7 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
         AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
             try {
-                Web3j web3j = Web3j.build(new HttpService(getUrl(AppEnv.getEnv(), "")));
+                Web3j web3j = Web3j.build(new HttpService(getUrl("")));
                 BigInteger balance = web3j.ethGetBalance(account,
                         DefaultBlockParameterName.LATEST).send().getBalance();
                 instance.mainThread().execute(() -> {
@@ -199,7 +208,7 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
                 }
                 String data = "0x70a08231000000000000000000000000" + end;
                 Transaction transaction = Transaction.createEthCallTransaction(account, contract, data);
-                Web3j web3j = Web3j.build(new HttpService(getUrl(AppEnv.getEnv(), "")));
+                Web3j web3j = Web3j.build(new HttpService(getUrl("")));
                 String value = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST).send().getValue();
                 if (!TextUtils.isEmpty(value)) {
                     balance = Numeric.toBigInt(value);
@@ -227,7 +236,7 @@ public class EthChainImpl extends AbstractChain<EthAccount, EthTransferParams>
     public void transfer(EthTransferParams params, Callback<String> callback) {
         AppExecutors instance = AppExecutors.getInstance();
         instance.networkIO().execute(() -> {
-            Web3j web3j = Web3j.build(new HttpService(getUrl(AppEnv.getEnv(), "")));
+            Web3j web3j = Web3j.build(new HttpService(getUrl("")));
             try {
                 if (params.getNonce() == null) {
                     BigInteger nonce = web3j.ethGetTransactionCount(params.getFrom(),

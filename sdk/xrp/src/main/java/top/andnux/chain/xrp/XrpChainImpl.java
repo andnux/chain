@@ -17,17 +17,13 @@ public class XrpChainImpl extends AbstractChain<XrpAccount, XrpTransferParams>
     }
 
     @Override
-    public XrpAccount create() throws Exception {
+    public XrpAccount importPrivateKey(String privateKey) throws Exception {
         return null;
     }
 
     @Override
-    public XrpAccount createByPrivateKey(String privateKey) throws Exception {
-        return null;
-    }
-
-    @Override
-    public String getDefaultUrl(AppEnv env) {
+    public String getDefaultUrl() {
+        AppEnv env = AppEnv.getEnv();
         String defaultUrl = "";
         switch (env) {
             case MAIN:

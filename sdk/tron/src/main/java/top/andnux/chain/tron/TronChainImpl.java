@@ -24,17 +24,17 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
     }
 
     @Override
-    public TronAccount create() throws Exception {
-        return create("");
+    public TronAccount importPrivateKey(String privateKey) throws Exception {
+        return importByPrivateKey(privateKey, "");
     }
 
     @Override
-    public TronAccount createByPrivateKey(String privateKey) throws Exception {
-        return createByPrivateKey(privateKey, "");
+    public TronAccount generate() throws Exception {
+        return generate("");
     }
 
     @Override
-    public TronAccount create(String password) throws Exception {
+    public TronAccount generate(String password) throws Exception {
         TronWallet tronWallet = TronWallet.generateWallet();
         mFile = new File(getApp().getExternalCacheDir(), "keystore");
         if (!mFile.exists())mFile.mkdirs();
@@ -47,7 +47,7 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
     }
 
     @Override
-    public TronAccount createByPrivateKey(String privateKey, String password) throws Exception {
+    public TronAccount importByPrivateKey(String privateKey, String password) throws Exception {
         TronWallet tronWallet = TronWallet.generateKeyForPrivateKey(privateKey);
         mFile = new File(getApp().getExternalCacheDir(), "keystore");
         if (!mFile.exists()) mFile.mkdirs();
@@ -59,12 +59,12 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
     }
 
     @Override
-    public TronAccount createByKeyStore(String keyStore) throws Exception {
-        return createByKeyStore(keyStore, "");
+    public TronAccount importByKeyStore(String keyStore) throws Exception {
+        return importByKeyStore(keyStore, "");
     }
 
     @Override
-    public TronAccount createByKeyStore(String keyStore, String password) throws Exception {
+    public TronAccount importByKeyStore(String keyStore, String password) throws Exception {
         TronWallet tronWallet = TronWallet.generateKeyForKeyStore(keyStore, password);
         mFile = new File(getApp().getExternalCacheDir(), "keystore");
         if (!mFile.exists())mFile.mkdirs();
@@ -76,12 +76,12 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
     }
 
     @Override
-    public TronAccount createByMnemonic(String mnemonic) throws Exception {
-        return createByMnemonic(mnemonic, "");
+    public TronAccount importByMnemonic(String mnemonic) throws Exception {
+        return importByMnemonic(mnemonic, "");
     }
 
     @Override
-    public TronAccount createByMnemonic(String mnemonic, String password) throws Exception {
+    public TronAccount importByMnemonic(String mnemonic, String password) throws Exception {
         TronWallet tronWallet = TronWallet.generateKeyForMnemonic(mnemonic);
         mFile = new File(getApp().getExternalCacheDir(), "keystore");
         if (!mFile.exists())mFile.mkdirs();
@@ -93,7 +93,8 @@ public class TronChainImpl extends AbstractChain<TronAccount, TronTransferParams
     }
 
     @Override
-    public String getDefaultUrl(AppEnv env) {
+    public String getDefaultUrl() {
+        AppEnv env = AppEnv.getEnv();
         String defaultUrl = "";
         switch (env) {
             case MAIN:

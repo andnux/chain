@@ -56,7 +56,7 @@ public class Utils {
     }
 
 
-    public static String createMnemonic(Words words) {
+    public static String generateMnemonic(Words words) {
         StringBuilder sb = new StringBuilder();
         byte[] entropy = new byte[words.byteLength()];
         SecureRandom secureRandom = new SecureRandom();

@@ -6,7 +6,11 @@ import top.andnux.chain.core.Provider;
 @Provider(VsysChainImpl.class)
 public interface VsysChain extends Chain<VsysAccount,VsysTransferParams> {
 
-    VsysAccount createByNonce(Integer nonce) throws Exception;
+    VsysAccount generate() throws Exception;
 
-    VsysAccount createByMnemonicAndNonce(String mnemonic,Integer nonce) throws Exception;
+    VsysAccount generate(Integer nonce) throws Exception;
+
+    VsysAccount importByMnemonic(String mnemonic) throws Exception;
+
+    VsysAccount importByMnemonic(String mnemonic, Integer nonce) throws Exception;
 }

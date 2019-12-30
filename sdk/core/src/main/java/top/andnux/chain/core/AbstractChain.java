@@ -24,20 +24,22 @@ public abstract class AbstractChain<A extends Account, T extends TransferParams>
     }
 
     @Override
-    public String getUrlByUser(AppEnv env, String defaultUrl) {
+    public String getUrlByUser(String defaultUrl) {
+        AppEnv env = AppEnv.getEnv();
         String key = name().toLowerCase() + "_" + env.name().toLowerCase() + "_user";
         return mPreferences.getString(key, defaultUrl);
     }
 
     @Override
-    public String getUrl(AppEnv env, String defaultUrl) {
+    public String getUrl(String defaultUrl) {
+        AppEnv env = AppEnv.getEnv();
         String key = name().toLowerCase() + "_" + env.name().toLowerCase() + "_url";
-        String value = getUrlByUser(env, defaultUrl);
+        String value = getUrlByUser(defaultUrl);
         if (TextUtils.isEmpty(value)) {
             value = mPreferences.getString(key, defaultUrl);
         }
         if (TextUtils.isEmpty(value)) {
-            value = getDefaultUrl(env);
+            value = getDefaultUrl();
         }
         if (!value.endsWith("/")) {
             value += "/";
@@ -46,13 +48,15 @@ public abstract class AbstractChain<A extends Account, T extends TransferParams>
     }
 
     @Override
-    public void setUrlByUser(AppEnv env, String url) {
+    public void setUrlByUser(String url) {
+        AppEnv env = AppEnv.getEnv();
         String key = name().toLowerCase() + "_" + env.name().toLowerCase() + "_user";
         mPreferences.edit().putString(key, url).apply();
     }
 
     @Override
-    public void setUrl(AppEnv env, String url) {
+    public void setUrl(String url) {
+        AppEnv env = AppEnv.getEnv();
         String key = name().toLowerCase() + "_" + env.name().toLowerCase() + "_url";
         mPreferences.edit().putString(key, url).apply();
     }
